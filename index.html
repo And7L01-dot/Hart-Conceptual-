@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alexandru Lăpușneanul: hartă conceptuală</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap">
+<style>
+:root{--bg:#eef0f3;--surface:#fff;--ink:#1b2233;--muted:#586177;--line:#cfd4de;--on:#fff;
+--c1:#8c2f39;--c2:#2f6f6a;--c3:#a3721a;--c4:#3d4f8f;--c5:#6b3f7a;--c6:#4a5568;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161f;--surface:#1b212d;--ink:#e8eaf0;--muted:#a1a9bb;--line:#333b4d;--on:#10131a;
+--c1:#e08a93;--c2:#7cc4bd;--c3:#e2b865;--c4:#8fa3e6;--c5:#c79ad6;--c6:#a9b3c6}}
+:root[data-theme="dark"]{--bg:#12161f;--surface:#1b212d;--ink:#e8eaf0;--muted:#a1a9bb;--line:#333b4d;--on:#10131a;
+--c1:#e08a93;--c2:#7cc4bd;--c3:#e2b865;--c4:#8fa3e6;--c5:#c79ad6;--c6:#a9b3c6}
+html{scroll-padding-top:env(safe-area-inset-top,0px);color-scheme:light dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Newsreader",Georgia,"Times New Roman",serif;font-size:18px;line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding:32px 20px 48px}
+h1{font-size:clamp(30px,6vw,46px);line-height:1.1;font-weight:500;margin:0 0 8px;letter-spacing:-.01em}
+.sub{color:var(--muted);margin:0 0 28px;max-width:60ch}
+.hub{display:block;width:max-content;max-width:100%;margin:0 auto;padding:12px 22px;border:1.5px solid var(--ink);border-radius:10px;background:var(--surface);text-align:center;font-weight:500}
+.hub small{display:block;font-weight:400;color:var(--muted);font-size:15px}
+.stem{width:1.5px;height:22px;background:var(--line);margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;position:relative}
+@media (min-width:640px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.br{font:inherit;font-weight:500;padding:14px 10px;border-radius:10px;border:1.5px solid var(--cc);background:var(--surface);color:var(--cc);cursor:pointer;text-align:center;min-height:48px}
+.br[aria-pressed="true"]{background:var(--cc);color:var(--on)}
+.br:focus-visible,.nd:focus-visible,.ask:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.panel{margin-top:22px;padding:20px;border-radius:12px;background:var(--surface);border:1.5px solid var(--pc)}
+.panel h2{margin:0 0 12px;font-size:22px;font-weight:500;color:var(--pc)}
+.nds{display:flex;flex-wrap:wrap;gap:8px}
+.nd{font:inherit;font-size:17px;padding:8px 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;min-height:44px}
+.nd[aria-pressed="true"]{background:var(--pc);border-color:var(--pc);color:var(--on)}
+.det{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.det h3{margin:0 0 6px;font-size:20px;font-weight:500}
+.det p{margin:0;max-width:62ch}
+.nav{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.ask{font:inherit;font-size:16px;padding:9px 16px;border-radius:8px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;min-height:44px}
+.ask:hover{border-color:var(--ink)}
+footer{margin-top:36px;color:var(--muted);font-size:15px}
+</style>
+</head>
+<body>
+<main class="wrap">
+<h1>Alexandru Lăpușneanul</h1>
+<p class="sub">Hartă conceptuală pentru nuvela lui Costache Negruzzi (1840). Alege o ramură, apoi un concept.</p>
+<div class="hub">Alexandru Lăpușneanul<small>Costache Negruzzi, 1840</small></div>
+<div class="stem" aria-hidden="true"></div>
+<div class="grid" id="brs" role="group" aria-label="Ramurile hărții"></div>
+<section class="panel" id="panel" aria-live="polite">
+<h2 id="ptitle"></h2>
+<div class="nds" id="nds" role="group" aria-label="Concepte"></div>
+<div class="det"><h3 id="dt"></h3><p id="dp"></p></div>
+<div class="nav"><button class="ask" id="prev" type="button">Conceptul anterior</button><button class="ask" id="next" type="button">Conceptul următor</button></div>
+</section>
+<footer>Material de studiu pentru bacalaureat. Verifică mereu formulările cu textul nuvelei.</footer>
+</main>
+<script>
+var D=[
+{id:"context",k:"Context",n:[
+["Autorul","Costache Negruzzi (1808–1868), scriitor pașoptist și unul dintre inițiatorii prozei românești moderne."],
+["Publicarea","Nuvela a apărut în 1840 în revista Dacia literară, condusă de Mihail Kogălniceanu."],
+["Specia","Este considerată prima nuvelă istorică românească: acțiune din trecut, personaje reale, tratare epică."],
+["Curentul","Romantism, prin subiect istoric, personaj excepțional și antiteze, dar cu tehnici realiste: obiectivitate, detaliu, motivație."],
+["Sursa","Negruzzi pornește de la cronica lui Grigore Ureche și de la Miron Costin; motto-urile capitolelor vin din cronici."]]},
+{id:"personaje",k:"Personaje",n:[
+["Lăpușneanu","Domn crud și calculat, care urmărește puterea absolută. Replica lui celebră: „Dacă voi nu mă vreți, eu vă vreau”."],
+["Doamna Ruxanda","Fiica lui Petru Rareș. Încearcă să-l oprească din crime, apoi hotărăște să-l otrăvească."],
+["Moțoc","Vornic oportunist, care schimbă taberele din interes. Este dat mulțimii și sfârșește sub loviturile ei."],
+["Spancioc și Stroici","Boieri care se întorc din exil și caută dreptate pentru cei uciși. Ajută la sfârșitul domnului."],
+["Mitropolitul Teofan","Reprezintă autoritatea morală a Bisericii, în ultima parte a nuvelei."]]},
+{id:"actiune",k:"Acțiune",n:[
+["Întoarcerea","Lăpușneanu revine în Moldova cu sprijin turcesc. Boierii îi cer să plece, iar el le răspunde cu replica amenințătoare."],
+["Represiunea","Domnul distruge cetăți, ia averi și își elimină adversarii, apoi organizează banchetul în care sunt uciși boierii."],
+["Piramida de capete","Capetele boierilor uciși sunt așezate într-o piramidă, simbol al cruzimii."],
+["Moțoc și mulțimea","Mulțimea nemulțumită cere capul lui Moțoc, iar domnul i-l dă."],
+["Final","Bolnav, Lăpușneanu se face călugăr, dar amenință că va pedepsi pe mulți dacă se însănătoșește. Ruxanda îl otrăvește."]]},
+{id:"conflicte",k:"Conflicte",n:[
+["Domn și boieri","Conflictul central: puterea domnului față de boierimea care vrea să-și păstreze privilegiile."],
+["Domn și Doamnă","Ruxanda vine cu mila și morala, Lăpușneanu cu rațiunea de stat și cruzimea."],
+["Domn și Moțoc","Slugărnicia interesată se întoarce împotriva celui care a slujit."],
+["Domn și mulțime","Moțoc este sacrificat pentru a potoli mulțimea, ceea ce arată cinismul politic al domnului."]]},
+{id:"teme",k:"Teme",n:[
+["Puterea absolută","Dorința de a conduce fără restricții, chiar prin violență."],
+["Cruzimea","Abuzul de putere duce la teroare și devine mod de a guverna."],
+["Trădarea","Boierii și Moțoc își schimbă loialitatea după interes."],
+["Pedeapsa","Ruxanda și boierii exilați restabilesc o formă de dreptate, deși prin crimă."],
+["Istoria","Evenimente din secolul al XVI-lea, oglindite în conștiința epocii lui Negruzzi."]]},
+{id:"stil",k:"Stil",n:[
+["Structură","Patru capitole, fiecare cu un motto scurt, uneori preluat din cronică, care anunță ideea centrală."],
+["Narator","Obiectiv, la persoana a III-a, aproape neutru, fără comentarii."],
+["Antiteza","Cruzimea domnului față de bunătatea Ruxandei; măreția de la început față de moartea de la sfârșit."],
+["Limbaj","Arhaisme și regionalisme care dau culoare istorică; replicile sunt scurte și memorabile."],
+["Detaliul","Descrierea precisă a banchetului și a piramidei amplifică efectul."]]}
+];
+var bi=0,ni=0,brs=document.getElementById('brs'),nds=document.getElementById('nds'),panel=document.getElementById('panel');
+D.forEach(function(b,i){var e=document.createElement('button');e.type='button';e.className='br';e.textContent=b.k;e.dataset.i=i;e.style.setProperty('--cc','var(--c'+(i+1)+')');brs.appendChild(e)});
+function render(){
+var b=D[bi];
+Array.prototype.forEach.call(brs.children,function(e,i){e.setAttribute('aria-pressed',i===bi?'true':'false')});
+panel.style.setProperty('--pc','var(--c'+(bi+1)+')');
+document.getElementById('ptitle').textContent=b.k;
+nds.textContent='';
+b.n.forEach(function(n,j){var e=document.createElement('button');e.type='button';e.className='nd';e.textContent=n[0];e.dataset.j=j;e.setAttribute('aria-pressed',j===ni?'true':'false');nds.appendChild(e)});
+document.getElementById('dt').textContent=b.n[ni][0];
+document.getElementById('dp').textContent=b.n[ni][1];
+}
+function go(i,j,hash){bi=i;ni=j;render();if(hash){try{history.replaceState(null,'','#'+D[bi].id)}catch(e){}}}
+brs.addEventListener('click',function(e){var t=e.target.closest('.br');if(t)go(+t.dataset.i,0,true)});
+nds.addEventListener('click',function(e){var t=e.target.closest('.nd');if(t)go(bi,+t.dataset.j,false)});
+document.getElementById('next').addEventListener('click',function(){var L=D[bi].n.length;if(ni<L-1)go(bi,ni+1,false);else go((bi+1)%D.length,0,true)});
+document.getElementById('prev').addEventListener('click',function(){if(ni>0)go(bi,ni-1,false);else{var p=(bi+D.length-1)%D.length;go(p,D[p].n.length-1,true)}});
+function fromHash(){var h=location.hash.slice(1);for(var i=0;i<D.length;i++){if(D[i].id===h){go(i,0,false);return}}go(0,0,false)}
+window.addEventListener('hashchange',fromHash);
+fromHash();
+</script>
+</body>
+</html>
